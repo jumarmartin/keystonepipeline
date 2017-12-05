@@ -47,7 +47,7 @@ func inputBMI() {
 	var inches float64
 	var weight float64
 
-	fmt.Println("Please enter your height in inches \n If you don't know your height in inches, go back and calculate!")
+	fmt.Println("Please enter your height in inches \nIf you don't know your height in inches, go back and calculate!")
 	_, errInches := fmt.Scanf("%f", &inches)
 
 	fmt.Println("Please enter your weight in pounds!")
