@@ -7,27 +7,36 @@ import (
 )
 
 func main() {
-	var decision int
-	fmt.Println("Welcome to SimpleBMICalc!")
-	time.Sleep(2 * time.Second)
-	fmt.Println("What would you like to do?")
-	fmt.Println("Calculate Height in Inches (1) \nCalculate BMI (2)")
+	var running = 99
 
-	_, err := fmt.Scanf("%d", &decision)
+	for running == 99 {
+		var decision int
+		fmt.Println("Welcome to SimpleBMICalc!")
+		time.Sleep(2 * time.Second)
+		fmt.Println("What would you like to do?")
+		fmt.Println("Calculate Height in Inches (1) \nCalculate BMI (2)\nExit Program (3)")
 
-	switch decision {
-	case 1:
-		inputInches()
-		break
-	case 2:
-		inputBMI()
-		break
+		_, err := fmt.Scanf("%d", &decision)
 
+		switch decision {
+		case 1:
+			inputInches()
+			break
+		case 2:
+			inputBMI()
+			break
+		case 3:
+			running = decision
+			break
+		default:
+			println("Please enter a number!")
+		}
+
+		if err != nil {
+			fmt.Print("We've ran into an error: ", err)
+		}
 	}
 
-	if err != nil {
-		fmt.Print("We've ran into an error: ", err)
-	}
 }
 
 func inputInches() {
@@ -88,27 +97,27 @@ func calcBMI(inches float64, weight float64) {
 	var BMI float64
 
 	weight = weight * 703
-	inches = inches * inches
+	inches = math.Pow(inches, 2)
 
 	BMI = Round(weight/inches, .5, 2)
 
 	switch {
 	case BMI < 18.5:
-		fmt.Println("BMI less than 18.5", BMI)
+		fmt.Println("Your BMI is:", BMI, "- which is Underweight!")
 		break
 	case BMI > 18.5 && BMI < 24.9:
-		fmt.Println("BMI greater than 18.5 but less than 24.9", BMI)
+		fmt.Println("Your BMI is: ", BMI, "- which is Normal!")
 		break
 	case BMI > 25.0 && BMI < 29.9:
-		fmt.Println("BMI greater than 25.0 but less than 29.9", BMI)
+		fmt.Println("Your BMI is: ", BMI, "- which is Overweight!")
 		break
 	default:
-		fmt.Println("BMI is greater than 30.0", BMI)
+		fmt.Println("Your BMI is: ", BMI, "- which is Obese!")
 		break
 	}
 }
 
-// Round : Rounds the value, and returns the rounded value.
+// Round : Rounds the supplied value, and returns the rounded value.
 func Round(val float64, roundOn float64, places int) (newVal float64) {
 	var round float64
 	pow := math.Pow(10, float64(places))
