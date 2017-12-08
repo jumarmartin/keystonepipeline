@@ -14,7 +14,7 @@ func main() {
 		fmt.Println("Welcome to SimpleBMICalc!")
 		time.Sleep(2 * time.Second)
 		fmt.Println("What would you like to do?")
-		fmt.Println("Calculate Height in Inches (1) \nCalculate BMI (2)\nExit Program (3)")
+		fmt.Println("Calculate full height in Inches (1) \nCalculate BMI (2)\nExit Program (3)")
 
 		_, err := fmt.Scanf("%d", &decision)
 
@@ -26,6 +26,7 @@ func main() {
 			inputBMI()
 			break
 		case 3:
+			fmt.Println("Thank you for using SimpleBMICalc!")
 			running = decision
 			break
 		default:
@@ -79,7 +80,7 @@ func calcInches(feet int, inches int, err error, errord error) {
 
 	var final = feet + inches
 
-	fmt.Println(final)
+	fmt.Println("Your full height in inches is:", final, "inches")
 
 	if err != nil {
 		fmt.Println("FATAL ERROR:", err)
@@ -120,14 +121,20 @@ func calcBMI(inches float64, weight float64) {
 // Round : Rounds the supplied value, and returns the rounded value.
 func Round(val float64, roundOn float64, places int) (newVal float64) {
 	var round float64
+
 	pow := math.Pow(10, float64(places))
+
 	digit := pow * val
+
 	_, div := math.Modf(digit)
+
 	if div >= roundOn {
 		round = math.Ceil(digit)
 	} else {
 		round = math.Floor(digit)
 	}
+
 	newVal = round / pow
+
 	return
 }
